@@ -93,6 +93,10 @@ Check versions in package.json
     2. Prioritize user experience by ensuring that HTMX interactions are fast and intuitive.
     3. Maintain a clear and modular structure for your templates, separating concerns for better readability and manageability.
 
+## Go language
+
+Read and apply "Effective Go" - BEST PRACTICES FOR the Go Programming Language, available here: @docs/Go/go-dev-doc-effective-go-20250505.md as well as the supplement: @docs/Go/pthethanh-effective-go-supplement-20250505.md
+
 ## Library Version Compatibilty
 **Tailwind v4**
 - do not add `tailwind.config.js`

@@ -15,7 +15,6 @@ Refer to the Tech Stack documentation links of each technology for best practice
 - AlpineJS for reactivity with HTMX. Docs: https://alpinejs.dev/
 - Tailwind CSS for UI styling. Docs: https://tailwindcss.com/docs/styling-with-utility-classes
 - daisyUI components and themes: https://daisyui.com/
-- 
 
 ## Hot reloading
 - Air for Go and Templ files
@@ -24,9 +23,11 @@ Refer to the Tech Stack documentation links of each technology for best practice
 
 ## Prerequisites
 
-- [Go](https://golang.org/dl/) (version 1.24 or later)
+- [Go](https://golang.org/dl/) (Download version 1.24 or later)
 - [Bun](https://bun.sh) (for JavaScript module installation)
 - [Air](https://github.com/air-verse/air) (for hot reloading)
+
+**Install Bun and Air**
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
@@ -87,15 +88,9 @@ bun run gostart
 
 The application will be available at http://localhost:8080
 
-## Main Project Structure
+## Project Structure
 
-- `cmd/server/main.go` - Main Go server
-- `templates/` - Templ templates
-- `frontend/src/` - Frontend JavaScript and CSS
-- `static/` - Compiled static assets
-- `.env`- Environment variables
-
-See also: docs/DirectoryStructure.md
+See: docs/DirectoryStructure.md
 
 ## Production Build & Deployment
 

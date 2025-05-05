@@ -1,0 +1,90 @@
+package components
+
+import "fmt"
+
+templ Counter(value int, maxValue int) {
+  <div id="counter-container" class="box">
+    <div class="has-text-centered">
+      <!-- Counter buttons first -->
+      <div class="field is-grouped is-grouped-centered mb-5">
+        <p class="control">
+          <button
+            class="button is-primary"
+            hx-post="/decrement"
+            hx-target="#counter-container"
+            hx-swap="outerHTML"
+          >
+            <span class="icon is-small">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            <span>Decrement</span>
+          </button>
+        </p>
+        <p class="control">
+          <span id="counter" class="tag is-large is-bulma-primary-soft">{ fmt.Sprint(value) }</span>
+        </p>
+        <p class="control">
+          <button
+            class="button is-primary"
+            hx-post="/increment"
+            hx-target="#counter-container"
+            hx-swap="outerHTML"
+          >
+            <span class="icon is-small">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            <span>Increment</span>
+          </button>
+        </p>
+      </div>
+
+      <!-- Max value display -->
+      <div class="content has-text-centered mb-5">
+        <p>Current Max Value: <span id="current-max" class="tag is-info is-medium">{ fmt.Sprint(maxValue) }</span></p>
+      </div>
+
+      <!-- Form with local AlpineJS validation -->
+      <div class="mt-5" x-data="{ maxCount: '', error: '' }">
+        <form hx-post="/set-max" hx-target="#counter-container" hx-swap="outerHTML">
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input
+                id="max-input"
+                class="input"
+                type="number"
+                name="max"
+                min="1"
+                max="100"
+                placeholder="Enter max value (1-100)"
+                required
+                x-model.number="maxCount"
+                @input="error = (maxCount < 1 || maxCount > 100) ? 'Value must be between 1 and 100' : ''"
+                :class="{ 'is-danger': error !== '' }"
+              />
+            </div>
+            <div class="control">
+              <button
+                class="button is-info"
+                type="submit"
+                :disabled="error !== ''"
+              >
+                <span class="icon is-small">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span>Max Count</span>
+              </button>
+            </div>
+          </div>
+          <!-- Error message display -->
+          <p class="help is-danger" x-show="error !== ''" x-text="error"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+}

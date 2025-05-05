@@ -1,0 +1,32 @@
+{
+  "name": "gomywebappstack",
+  "module": "index.ts",
+  "devDependencies": {
+    "alpinejs": "^3.14.9",
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.25.3",
+    "htmx.org": "^1.9.12"
+  },
+  "private": true,
+  "scripts": {
+    "build:js": "esbuild frontend/js/main.js --bundle --minify --sourcemap --outfile=static/js/app.js",
+    "build:css": "bunx sass --load-path=node_modules frontend/styles/styles.scss static/css/app.css --style=compressed",
+    "build:templ": "templ generate ./...",
+    "build:frontend": "bun run build:js && bun run build:css",
+    "build": "bun run build:templ && bun run build:frontend",
+    "build:server": "go build -ldflags=\"-s -w\" -o ./build/server ./cmd/server",
+    "build:production": "bun run build:templ && bun run build:frontend && bun run build:server",
+    "watch:js": "esbuild frontend/js/main.js --bundle --sourcemap --outfile=static/js/app.js --watch",
+    "watch:css": "bunx sass  --load-path=node_modules frontend/styles/styles.scss static/css/app.css --watch",
+    "watch:frontend": "concurrently \"bun run watch:js\" \"bun run watch:css\"",
+    "watch:backend": "bun run build:templ && air",
+    "watch": "concurrently \"bun run watch:backend\" \"bun run watch:frontend\"",
+    "goserve": "go run cmd/server/main.go",
+    "gostart": "bun run build && bun run run"
+  },
+  "type": "module",
+  "dependencies": {
+    "bulma": "^1.0.4",
+    "sass": "^1.87.0"
+  }
+}

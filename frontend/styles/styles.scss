@@ -1,0 +1,13 @@
+// @import has been deprecated and removed
+
+// Path to Bulma's sass folder (no changes applied)
+//@use "bulma/sass";
+
+// Overwrite Bulma’s Sass variables
+@use "bulma/sass" with (
+  $family-primary: '"Nunito", sans-serif',
+  $primary: hsl(171, 100%, 41%)
+);
+
+// Import the Google Font
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");

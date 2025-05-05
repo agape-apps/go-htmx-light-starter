@@ -1,0 +1,61 @@
+# Air configuration file for GoMyWebAppStack
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Run templ generation before Go build
+pre_cmd = ["templ generate ./..."]
+# Just build the binary but don't run it
+cmd = "go build -o ./tmp/main ./cmd/server"
+bin = "tmp/main"
+# Include more file types for monitoring
+include_ext = ["go", "templ", "html"]
+# Exclude more directories from monitoring
+exclude_dir = ["static", "node_modules", "dist", "tmp", "tests"]
+# Exclude test files and generated templ files
+exclude_regex = ["_templ\\.go$", "_test\\.go"]
+# Log build errors to a file
+log = "build-errors-air.log"
+# Add a delay before building to avoid rapid rebuilds
+delay = 1000 # ms
+# Stop on build errors
+stop_on_error = true
+# Don't follow symlinks
+follow_symlink = false
+# Don't poll for changes (use filesystem notifications)
+poll = false
+
+[run]
+# Air will run this binary after a successful build
+cmd = "./tmp/main"
+# Add a delay before starting the new process
+delay = 500 # ms
+# Add a delay before killing the old process
+kill_delay = 500 # ms
+# Send interrupt signal before killing the process (triggers graceful shutdown)
+send_interrupt = true
+# Stop running old binary before starting new one
+stop_on_error = true
+# Don't rerun the binary if it exits
+rerun = false
+
+[log]
+# Show timestamps in logs
+time = true
+# Show all logs, not just main process
+main_only = false
+
+[color]
+# Color settings for better readability
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+[misc]
+# Clean temporary files on exit
+clean_on_exit = true
+
+[screen]
+# Keep scroll position
+keep_scroll = true

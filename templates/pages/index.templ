@@ -1,0 +1,17 @@
+package pages
+
+import "github.com/christian/mywebapp/templates/components"
+
+// Index is the homepage template for the counter app
+templ Index(value int, maxValue int) {
+  <div class="box"> // Added box class
+    <h1 class="title is-2 has-text-centered mb-5">Web App Template</h1> // Added Bulma title, size, alignment, margin
+    <figure class="image is-128x128 is-block mx-auto mb-5"> // Added Bulma figure, image size, centering, margin
+      <img src="static/images/android-chrome-192x192.png" alt="HTMX Go Icon" />
+    </figure>
+    <div class="content has-text-centered"> // Added Bulma content class and centering
+      <p class="mb-5">This is a simple counter app built with a Go/Chi server, Templ for templating, HTMX/Alpine.js for interactivity and Bulma SCSS for styling, intended as a starter template.</p>
+      @components.Counter(value, maxValue)
+    </div>
+  </div>
+}

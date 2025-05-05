@@ -1,0 +1,27 @@
+package layouts
+
+import "github.com/christian/mywebapp/templates/components"
+
+templ Base(title string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title }</title>
+			<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png"/>
+			<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+			<link rel="icon" href="/static/images/favicon.png" sizes="any"/>
+			<link rel="stylesheet" href="/static/css/app.css"/>
+		</head>
+		<body>
+			<section class="section">
+				<div class="container" id="main-content-wrapper"> // Added Bulma classes
+					@content
+				</div>
+			</section>
+			<script src="/static/js/app.js"></script>
+			@components.BodyScripts()
+		</body>
+	</html>
+}

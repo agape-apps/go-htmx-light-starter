@@ -1,0 +1,30 @@
+package todonowtemplates // Keep templates separate
+
+import "strconv"
+import models "go-htmx-light-starter/todonow/models" // Import models package
+// TodoItem renders a single TODO list item.
+templ TodoItem(todo models.Todo) { // Use models.Todo
+	<li id={ "todo-" + strconv.FormatInt(todo.ID, 10) } class="flex items-center justify-between p-2 border-b">
+		<div class="flex items-center">
+			<input
+ 				type="checkbox"
+ 				class="checkbox checkbox-primary mr-2"
+ 				checked?={ todo.Completed }
+ 				hx-put={ "/todonow/toggle/" + strconv.FormatInt(todo.ID, 10) }
+ 				hx-target={ "#todo-" + strconv.FormatInt(todo.ID, 10) }
+ 				hx-swap="outerHTML"
+			/>
+ 			// Apply line-through style if completed
+ 			<span class={ templ.KV("line-through text-gray-500", todo.Completed) }>{ todo.Task }</span>
+		</div>
+		<button
+ 			class="btn btn-xs btn-error btn-outline"
+ 			hx-delete={ "/todonow/delete/" + strconv.FormatInt(todo.ID, 10) } 
+ 			hx-target={ "#todo-" + strconv.FormatInt(todo.ID, 10) }
+ 			hx-swap="outerHTML"
+ 			hx-confirm={ "Are you sure you want to delete '" + todo.Task + "'?" } 
+		>
+			Delete
+		</button>
+	</li>
+}

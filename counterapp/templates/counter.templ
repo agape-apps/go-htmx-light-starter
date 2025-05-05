@@ -1,0 +1,77 @@
+package counterapptemplates
+
+import "fmt"
+
+templ Counter(value int, maxValue int) {
+  <div id="counter-container" class="card card-bordered bg-base-100 shadow-xl w-full max-w-md mx-auto">
+    <div class="card-body items-center text-center">
+    <!-- Counter buttons first -->
+    <div class="flex items-center gap-4 text-2xl font-bold mb-8">
+      <button
+        hx-post="/decrement"
+        hx-target="#counter-container"
+        hx-swap="outerHTML"
+        class="btn btn-primary flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+        Decrement
+      </button>
+
+      <div class="text-3xl min-w-16 h-16 flex items-center justify-center bg-base-200 rounded-full">
+        <span id="counter">{ fmt.Sprint(value) }</span>
+      </div>
+
+      <button
+        hx-post="/increment"
+        hx-target="#counter-container"
+        hx-swap="outerHTML"
+        class="btn btn-secondary flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Increment
+      </button>
+    </div>
+    
+    <!-- Max value display -->
+    <div class="mb-6 text-center">
+      <p class="text-base-content mb-2">Current Max Value: <span class="badge badge-secondary badge-lg" id="current-max">{ fmt.Sprint(maxValue) }</span></p>
+    </div>
+    
+    <!-- Form with local AlpineJS validation -->
+    <div class="w-full" x-data="{ maxCount: '', error: '' }">
+      <form class="flex flex-col gap-2" hx-post="/set-max" hx-target="#counter-container" hx-swap="outerHTML">
+        <div class="join w-full">
+          <input
+            type="number"
+            name="max"
+            min="1"
+            max="100"
+            placeholder="Enter max value (1-100)"
+            class="input input-bordered input-secondary join-item flex-grow"
+            required
+            x-model.number="maxCount"
+            @input="error = (maxCount < 1 || maxCount > 100) ? 'Value must be between 1 and 100' : ''"
+          />
+          <button
+            type="submit"
+            class="btn btn-secondary join-item"
+            :disabled="error !== ''"
+            :class="{ 'btn-disabled': error !== '' }"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+            </svg>
+            Max Count
+          </button>
+        </div>
+        <!-- Error message display -->
+        <div x-show="error !== ''" x-text="error" class="text-error text-sm mt-1"></div>
+      </form>
+    </div>
+    </div>
+  </div>
+}

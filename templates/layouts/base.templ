@@ -1,0 +1,25 @@
+package layouts
+
+import "go-htmx-light-starter/templates/components"
+
+templ Base(title string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="winter">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title }</title>
+			<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png"/>
+			<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+			<link rel="icon" href="/static/images/favicon.png" sizes="any"/>
+			<link rel="stylesheet" href="/static/app.css"/>
+		</head>
+		<body class="bg-base-200 font-sans">
+			<div class="w-full max-w-[800px] mx-auto bg-base-100 min-h-screen shadow-xl">
+				@content
+			</div>
+			<script src="/static/app.js"></script>
+			@components.BodyScripts()
+		</body>
+	</html>
+}

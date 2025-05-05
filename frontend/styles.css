@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Load all themes for easy dev testing in base.templ */
+@plugin "daisyui" {
+  themes: all;
+}

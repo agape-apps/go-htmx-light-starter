@@ -1,0 +1,13 @@
+package counterapptemplates
+
+// Index is the homepage template for the counter app
+templ Index(value int, maxValue int) {
+  <div class="container mx-auto p-8">
+    <h1 class="text-4xl font-bold mb-6 text-center text-primary">Web App Template</h1>
+<img src="static/images/android-chrome-192x192.png" alt="HTMX Go Icon" class="mx-auto mb-6" />
+    <div class="max-w-md mx-auto">
+      <p class="mb-8 text-center text-lg">This is a simple counter app built with Go, HTMX, and Alpine.js a for use as a starter template.</p>
+      @Counter(value, maxValue)
+    </div>
+  </div>
+}

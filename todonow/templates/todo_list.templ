@@ -1,0 +1,11 @@
+package todonowtemplates
+
+import models "go-htmx-light-starter/todonow/models" // Import models package
+// TodoList renders a list of TODO items.
+templ TodoList(todos []models.Todo) { // Use models.Todo
+	<ul id="todo-list" class="list-none p-0 m-0">
+		for _, todo := range todos {
+			@TodoItem(todo)
+		}
+	</ul>
+}
